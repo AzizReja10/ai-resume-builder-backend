@@ -16,7 +16,7 @@ async def startup():
 
 @app.get("/health")
 async def health():
-    return {"status": "ok"}
+    return {"status": "ok" }
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173", "https://ai-resume-builder-frontend-ebxf8vbgd-aziz-rejas-projects.vercel.app"],
