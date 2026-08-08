@@ -19,7 +19,7 @@ async def health():
     return {"status": "ok" }
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://ai-resume-builder-frontend-ebxf8vbgd-aziz-rejas-projects.vercel.app"],
+    allow_origins=["http://localhost:5173", "https://ai-resume-builder-frontend-ebxf8vbgd-aziz-rejas-projects.vercel.app","https://ai-resume-builder-frontend-sigma.vercel.app/"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
