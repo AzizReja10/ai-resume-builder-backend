@@ -40,3 +40,18 @@ class GithubProfileRequest(BaseModel):
     github_url:str
 class SkillsSyncResponse(BaseModel):
     skills:list[SkillGroup]
+class ExtractedLink(BaseModel):
+    label:str
+    url:str
+class ExtractedEducation(BaseModel):
+    institution:str
+    degree:str=""
+    details:str=""
+    dates:str=""
+class GeneratedProject(BaseModel):
+    name:str
+    tags:str
+    bullets:list[str]
+    skills:list[SkillGroup]
+    profile_links:list[ExtractedLink]=[]
+    education:list[ExtractedEducation]=[]
