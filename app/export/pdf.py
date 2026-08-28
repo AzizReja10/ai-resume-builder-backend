@@ -69,7 +69,8 @@ entry_title_style = ParagraphStyle(
     "EntryTitle",
     fontName=FONT_BOLD,
     fontSize=10,
-    leading=12,
+    leading=-3,
+    leftIndent=-2,
     spaceAfter=0,
 )
 
