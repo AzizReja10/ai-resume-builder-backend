@@ -12,15 +12,38 @@ from reportlab.platypus import (
 )
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib import colors
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+import os
 
 
 # ============================================================
 # PAGE / FONT CONFIG
 # ============================================================
 
-FONT = "Times-Roman"
-FONT_BOLD = "Times-Bold"
-FONT_ITALIC = "Times-Italic"
+# --- Register Computer Modern (CMU Serif) so the text matches
+#     the LaTeX-style look of resume3.pdf. Only the typeface
+#     changes here — every size/leading/spacing value below is
+#     untouched, so layout and alignment stay identical.
+# The 4 .ttf files must sit in a "fonts" folder next to this script.
+_FONT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts")
+
+pdfmetrics.registerFont(TTFont("CMUSerifRoman", f"{_FONT_DIR}/cmunrm.ttf"))
+pdfmetrics.registerFont(TTFont("CMUSerifBold", f"{_FONT_DIR}/cmunbx.ttf"))
+pdfmetrics.registerFont(TTFont("CMUSerifItalic", f"{_FONT_DIR}/cmunti.ttf"))
+pdfmetrics.registerFont(TTFont("CMUSerifBoldItalic", f"{_FONT_DIR}/cmunbi.ttf"))
+
+pdfmetrics.registerFontFamily(
+    "CMUSerifRoman",
+    normal="CMUSerifRoman",
+    bold="CMUSerifBold",
+    italic="CMUSerifItalic",
+    boldItalic="CMUSerifBoldItalic",
+)
+
+FONT = "CMUSerifRoman"
+FONT_BOLD = "CMUSerifBold"
+FONT_ITALIC = "CMUSerifItalic"
 
 LINK_COLOR = "#0563C1"
 
@@ -193,6 +216,34 @@ technical_skill_style = ParagraphStyle(
 # ============================================================
 # LINK FUNCTION
 # ============================================================
+
+def small_caps_name(text, big_size=18, small_size=13.5):
+    """
+    Renders NAME as small caps (first letter of each word full
+    size, rest of the word smaller-but-still-uppercase) to match
+    the small-caps header style used in resume3.pdf. Does not
+    touch name_style's fontSize/leading, so the header's overall
+    line height and centering stay exactly as before.
+    """
+
+    words = text.split()
+
+    parts = []
+
+    for word in words:
+
+        if not word:
+            continue
+
+        first, rest = word[0], word[1:]
+
+        parts.append(
+            f'<font size="{big_size}">{first.upper()}</font>'
+            f'<font size="{small_size}">{rest.upper()}</font>'
+        )
+
+    return " ".join(parts)
+
 
 def styled_link(url, label):
     """
@@ -414,7 +465,7 @@ def build_resume_pdf(
 
         story.append(
             Paragraph(
-                name.upper(),
+                small_caps_name(name),
                 name_style
             )
         )
