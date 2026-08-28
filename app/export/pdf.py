@@ -23,7 +23,6 @@ bullet_style = ParagraphStyle("Bullet", fontName=FONT, fontSize=9.5, leading=13,
 tech_line_style = ParagraphStyle("TechLine", fontName=FONT, fontSize=9.5, leading=13, spaceAfter=3)
 code_line_style = ParagraphStyle("CodeLine", fontName=FONT, fontSize=9.5, leading=13, spaceAfter=6)
 
-
 def styled_link(url: str, label: str) -> str:
     return f'<link href="{url}"><font color="{LINK_COLOR}"><u>{label}</u></font></link>'
 
