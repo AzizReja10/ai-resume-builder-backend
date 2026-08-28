@@ -52,7 +52,7 @@ CONTENT_WIDTH = PAGE_WIDTH - LEFT_MARGIN - RIGHT_MARGIN
 name_style = ParagraphStyle(
     "Name",
     fontName=FONT_BOLD,
-    fontSize=17,
+    fontSize=18,
     leading=19,
     alignment=TA_CENTER,
     spaceBefore=0,
@@ -78,7 +78,7 @@ contact_style = ParagraphStyle(
 section_style = ParagraphStyle(
     "Section",
     fontName=FONT_BOLD,
-    fontSize=11.2,
+    fontSize=11,
     leading=13,
     spaceBefore=4,
     spaceAfter=1,
@@ -92,7 +92,7 @@ section_style = ParagraphStyle(
 entry_title_style = ParagraphStyle(
     "EntryTitle",
     fontName=FONT_BOLD,
-    fontSize=10.5,
+    fontSize=10.8,
     leading=13,
     spaceBefore=1,
     spaceAfter=2,
