@@ -48,7 +48,7 @@ CONTENT_WIDTH = PAGE_WIDTH - LEFT_MARGIN - RIGHT_MARGIN
 name_style = ParagraphStyle(
     "Name",
     fontName=FONT_BOLD,
-    fontSize=16,
+    fontSize=18,
     leading=17,
     alignment=TA_CENTER,
     spaceBefore=0,
@@ -59,7 +59,7 @@ name_style = ParagraphStyle(
 contact_style = ParagraphStyle(
     "Contact",
     fontName=FONT,
-    fontSize=9.1,
+    fontSize=11.1,
     leading=10.5,
     alignment=TA_CENTER,
     spaceBefore=0,
@@ -74,7 +74,7 @@ contact_style = ParagraphStyle(
 section_style = ParagraphStyle(
     "Section",
     fontName=FONT_BOLD,
-    fontSize=10.2,
+    fontSize=12.2,
     leading=11,
     spaceBefore=3,
     spaceAfter=1,
@@ -88,7 +88,7 @@ section_style = ParagraphStyle(
 entry_title_style = ParagraphStyle(
     "EntryTitle",
     fontName=FONT_BOLD,
-    fontSize=9.8,
+    fontSize=11.8,
     leading=11.5,
 
     # Small spacing around title
@@ -104,7 +104,7 @@ entry_title_style = ParagraphStyle(
 date_style = ParagraphStyle(
     "Date",
     fontName=FONT_ITALIC,
-    fontSize=9.4,
+    fontSize=11.4,
     leading=11.5,
     alignment=TA_RIGHT,
 
@@ -120,7 +120,7 @@ date_style = ParagraphStyle(
 italic_style = ParagraphStyle(
     "Italic",
     fontName=FONT_ITALIC,
-    fontSize=9.2,
+    fontSize=11.2,
     leading=11,
 
     # Move degree slightly right
@@ -138,7 +138,7 @@ italic_style = ParagraphStyle(
 tech_style = ParagraphStyle(
     "Tech",
     fontName=FONT,
-    fontSize=9.2,
+    fontSize=11.2,
     leading=11.2,
 
     # Move Tech Stack slightly right
@@ -156,7 +156,7 @@ tech_style = ParagraphStyle(
 bullet_style = ParagraphStyle(
     "Bullet",
     fontName=FONT,
-    fontSize=9.15,
+    fontSize=11.15,
     leading=11.5,
 
     # Move bullet + text to the right
@@ -178,7 +178,7 @@ bullet_style = ParagraphStyle(
 code_style = ParagraphStyle(
     "Code",
     fontName=FONT,
-    fontSize=9.15,
+    fontSize=11.15,
     leading=11,
 
     # Align Code with bullet text
@@ -198,7 +198,7 @@ code_style = ParagraphStyle(
 technical_skill_style = ParagraphStyle(
     "TechnicalSkill",
     fontName=FONT,
-    fontSize=9.2,
+    fontSize=11.2,
     leading=11.5,
 
     # Move technical skill content slightly right
