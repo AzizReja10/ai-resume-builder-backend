@@ -1,6 +1,3 @@
-import os
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import inch
 from reportlab.lib.enums import TA_CENTER
@@ -10,26 +7,20 @@ from reportlab.platypus import (
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib import colors
 
-FONTS_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "fonts")
-
-pdfmetrics.registerFont(TTFont("Lora", os.path.join(FONTS_DIR, "Lora-Regular.ttf")))
-pdfmetrics.registerFont(TTFont("Lora-Bold", os.path.join(FONTS_DIR, "Lora-Bold.ttf")))
-pdfmetrics.registerFont(TTFont("Lora-Italic", os.path.join(FONTS_DIR, "Lora-Italic.ttf")))
-
-FONT = "Lora"
-FONT_BOLD = "Lora-Bold"
-FONT_ITALIC = "Lora-Italic"
+FONT = "Times-Roman"
+FONT_BOLD = "Times-Bold"
+FONT_ITALIC = "Times-Italic"
 LINK_COLOR = "#1a56db"
 
-name_style = ParagraphStyle("Name", fontName=FONT_BOLD, fontSize=22, alignment=TA_CENTER, spaceAfter=2, leading=26)
+name_style = ParagraphStyle("Name", fontName=FONT_BOLD, fontSize=16, alignment=TA_CENTER, spaceAfter=2, leading=19)
 contact_style = ParagraphStyle("Contact", fontName=FONT, fontSize=9.5, alignment=TA_CENTER, spaceAfter=10, leading=14)
-section_style = ParagraphStyle("Section", fontName=FONT_BOLD, fontSize=11, spaceBefore=8, spaceAfter=2)
-entry_title_style = ParagraphStyle("EntryTitle", fontName=FONT_BOLD, fontSize=10.5, leading=13)
-entry_sub_italic_style = ParagraphStyle("EntrySubItalic", fontName=FONT_ITALIC, fontSize=10, leading=12)
-entry_date_style = ParagraphStyle("EntryDate", fontName=FONT_BOLD, fontSize=10, alignment=2, leading=13)
-entry_date_italic_style = ParagraphStyle("EntryDateItalic", fontName=FONT_ITALIC, fontSize=10, alignment=2, leading=12)
-bullet_style = ParagraphStyle("Bullet", fontName=FONT, fontSize=9.7, leading=13, leftIndent=20, firstLineIndent=-10, spaceAfter=3)
-tech_line_style = ParagraphStyle("TechLine", fontName=FONT, fontSize=9.7, leading=13, spaceAfter=3)
+section_style = ParagraphStyle("Section", fontName=FONT_BOLD, fontSize=10.5, spaceBefore=8, spaceAfter=2)
+entry_title_style = ParagraphStyle("EntryTitle", fontName=FONT_BOLD, fontSize=10, leading=13)
+entry_sub_italic_style = ParagraphStyle("EntrySubItalic", fontName=FONT_ITALIC, fontSize=9.5, leading=12)
+entry_date_style = ParagraphStyle("EntryDate", fontName=FONT_BOLD, fontSize=9.5, alignment=2, leading=13)
+entry_date_italic_style = ParagraphStyle("EntryDateItalic", fontName=FONT_ITALIC, fontSize=9.5, alignment=2, leading=12)
+bullet_style = ParagraphStyle("Bullet", fontName=FONT, fontSize=9.5, leading=13, leftIndent=20, firstLineIndent=-10, spaceAfter=3)
+tech_line_style = ParagraphStyle("TechLine", fontName=FONT, fontSize=9.5, leading=13, spaceAfter=3)
 code_line_style = ParagraphStyle("CodeLine", fontName=FONT, fontSize=9.5, leading=13, spaceAfter=6)
 
 
