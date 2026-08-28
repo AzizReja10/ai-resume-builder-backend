@@ -45,169 +45,150 @@ CONTENT_WIDTH = PAGE_WIDTH - LEFT_MARGIN - RIGHT_MARGIN
 # HEADER
 # ------------------------------------------------------------
 
+# ============================================================
+# HEADER
+# ============================================================
+
 name_style = ParagraphStyle(
     "Name",
     fontName=FONT_BOLD,
-    fontSize=18,
-    leading=17,
+    fontSize=17,
+    leading=19,
     alignment=TA_CENTER,
     spaceBefore=0,
-    spaceAfter=2,
+    spaceAfter=3,
 )
 
 
 contact_style = ParagraphStyle(
     "Contact",
     fontName=FONT,
-    fontSize=11.1,
-    leading=10.5,
+    fontSize=10,
+    leading=12,
     alignment=TA_CENTER,
     spaceBefore=0,
-    spaceAfter=7,
+    spaceAfter=8,
 )
 
 
-# ------------------------------------------------------------
+# ============================================================
 # SECTION HEADINGS
-# ------------------------------------------------------------
+# ============================================================
 
 section_style = ParagraphStyle(
     "Section",
     fontName=FONT_BOLD,
-    fontSize=12.2,
-    leading=11,
-    spaceBefore=3,
+    fontSize=11.2,
+    leading=13,
+    spaceBefore=4,
     spaceAfter=1,
 )
 
 
-# ------------------------------------------------------------
+# ============================================================
 # PROJECT / UNIVERSITY TITLE
-# ------------------------------------------------------------
+# ============================================================
 
 entry_title_style = ParagraphStyle(
     "EntryTitle",
     fontName=FONT_BOLD,
-    fontSize=11.8,
-    leading=11.5,
-
-    # Small spacing around title
+    fontSize=10.5,
+    leading=13,
     spaceBefore=1,
     spaceAfter=2,
 )
 
 
-# ------------------------------------------------------------
+# ============================================================
 # DATES
-# ------------------------------------------------------------
+# ============================================================
 
 date_style = ParagraphStyle(
     "Date",
     fontName=FONT_ITALIC,
-    fontSize=11.4,
-    leading=11.5,
+    fontSize=10.2,
+    leading=13,
     alignment=TA_RIGHT,
-
     spaceBefore=1,
     spaceAfter=0,
 )
 
 
-# ------------------------------------------------------------
+# ============================================================
 # DEGREE
-# ------------------------------------------------------------
+# ============================================================
 
 italic_style = ParagraphStyle(
     "Italic",
     fontName=FONT_ITALIC,
-    fontSize=11.2,
-    leading=11,
-
-    # Move degree slightly right
+    fontSize=10,
+    leading=12.5,
     leftIndent=8,
-
     spaceBefore=1,
     spaceAfter=2,
 )
 
 
-# ------------------------------------------------------------
+# ============================================================
 # TECH STACK
-# ------------------------------------------------------------
+# ============================================================
 
 tech_style = ParagraphStyle(
     "Tech",
     fontName=FONT,
-    fontSize=11.2,
-    leading=11.2,
-
-    # Move Tech Stack slightly right
+    fontSize=10,
+    leading=12.5,
     leftIndent=8,
-
     spaceBefore=1,
     spaceAfter=2,
 )
 
 
-# ------------------------------------------------------------
+# ============================================================
 # PROJECT BULLETS
-# ------------------------------------------------------------
+# ============================================================
 
 bullet_style = ParagraphStyle(
     "Bullet",
     fontName=FONT,
-    fontSize=11.15,
-    leading=11.5,
-
-    # Move bullet + text to the right
+    fontSize=9.8,
+    leading=12.5,
     leftIndent=25,
-
-    # Keep bullet itself slightly left of text
     firstLineIndent=-9,
-
-    # Small vertical spacing
     spaceBefore=0.5,
     spaceAfter=1.5,
 )
 
 
-# ------------------------------------------------------------
+# ============================================================
 # CODE / GITHUB
-# ------------------------------------------------------------
+# ============================================================
 
 code_style = ParagraphStyle(
     "Code",
     fontName=FONT,
-    fontSize=11.15,
-    leading=11,
-
-    # Align Code with bullet text
+    fontSize=9.8,
+    leading=12,
     leftIndent=25,
-
     firstLineIndent=0,
-
     spaceBefore=2,
     spaceAfter=3,
 )
 
 
-# ------------------------------------------------------------
+# ============================================================
 # TECHNICAL SKILLS
-# ------------------------------------------------------------
+# ============================================================
 
 technical_skill_style = ParagraphStyle(
     "TechnicalSkill",
     fontName=FONT,
-    fontSize=11.2,
-    leading=11.5,
-
-    # Move technical skill content slightly right
+    fontSize=10,
+    leading=12.5,
     leftIndent=8,
-
     spaceBefore=0.5,
-    spaceAfter=1.5,
+    spaceAfter=2,
 )
-
 
 # ============================================================
 # LINK FUNCTION
