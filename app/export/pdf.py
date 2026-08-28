@@ -1,51 +1,45 @@
+import os
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import inch
-from reportlab.lib.enums import TA_CENTER, TA_LEFT
+from reportlab.lib.enums import TA_CENTER
 from reportlab.platypus import (
-    SimpleDocTemplate, Paragraph, Spacer, ListFlowable, ListItem,
-    Table, TableStyle, HRFlowable
+    SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, HRFlowable
 )
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib import colors
 
-styles = getSampleStyleSheet()
+FONTS_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "fonts")
 
-FONT = "Times-Roman"
-FONT_BOLD = "Times-Bold"
-FONT_ITALIC = "Times-Italic"
+pdfmetrics.registerFont(TTFont("Lora", os.path.join(FONTS_DIR, "Lora-Regular.ttf")))
+pdfmetrics.registerFont(TTFont("Lora-Bold", os.path.join(FONTS_DIR, "Lora-Bold.ttf")))
+pdfmetrics.registerFont(TTFont("Lora-Italic", os.path.join(FONTS_DIR, "Lora-Italic.ttf")))
+
+FONT = "Lora"
+FONT_BOLD = "Lora-Bold"
+FONT_ITALIC = "Lora-Italic"
+LINK_COLOR = "#1a56db"
 
 name_style = ParagraphStyle("Name", fontName=FONT_BOLD, fontSize=22, alignment=TA_CENTER, spaceAfter=2, leading=26)
-contact_style = ParagraphStyle("Contact", fontName=FONT, fontSize=9.5, alignment=TA_CENTER, spaceAfter=10, leading=12)
+contact_style = ParagraphStyle("Contact", fontName=FONT, fontSize=9.5, alignment=TA_CENTER, spaceAfter=10, leading=14)
 section_style = ParagraphStyle("Section", fontName=FONT_BOLD, fontSize=11, spaceBefore=8, spaceAfter=2)
 entry_title_style = ParagraphStyle("EntryTitle", fontName=FONT_BOLD, fontSize=10.5, leading=13)
 entry_sub_italic_style = ParagraphStyle("EntrySubItalic", fontName=FONT_ITALIC, fontSize=10, leading=12)
-entry_date_style = ParagraphStyle("EntryDate", fontName=FONT_BOLD, fontSize=10, alignment=2, leading=13)  # right aligned
+entry_date_style = ParagraphStyle("EntryDate", fontName=FONT_BOLD, fontSize=10, alignment=2, leading=13)
 entry_date_italic_style = ParagraphStyle("EntryDateItalic", fontName=FONT_ITALIC, fontSize=10, alignment=2, leading=12)
-bullet_style = ParagraphStyle("Bullet", fontName=FONT, fontSize=9.7, leading=13,leftIndent=20)
-coursework_style = ParagraphStyle("Coursework", fontName=FONT, fontSize=9.7, leading=15)
+bullet_style = ParagraphStyle("Bullet", fontName=FONT, fontSize=9.7, leading=13, leftIndent=20, firstLineIndent=-10, spaceAfter=3)
+tech_line_style = ParagraphStyle("TechLine", fontName=FONT, fontSize=9.7, leading=13, spaceAfter=3)
+code_line_style = ParagraphStyle("CodeLine", fontName=FONT, fontSize=9.5, leading=13, spaceAfter=6)
+
+
+def styled_link(url: str, label: str) -> str:
+    return f'<link href="{url}"><font color="{LINK_COLOR}"><u>{label}</u></font></link>'
 
 
 def section_header(story, title):
     story.append(Paragraph(title.upper(), section_style))
-    story.append(HRFlowable(width="100%", thickness=0.4, color=colors.black, spaceBefore=1, spaceAfter=6))
-
-def project_title_line(item):
-    title = f'<b>{item.get("name", "")}</b>'
-    # if item.get("live_url"):
-    #     title += f' <link href="{item.get("live_url")}"><u>Live</u></link>'  # external-link arrow
-
-    tag_parts = []
-    if item.get("live_url"):
-        tag_parts.append(f' <link href="{item.get("live_url")}"><u>Github</u></link>')
-    if item.get("group_label"):
-        tag_parts.append(item.get("group_label"))
-    if item.get("tags"):
-        tag_parts.append(item.get("tags"))
-
-    if tag_parts:
-        title += f' &nbsp;|&nbsp; <i>{", ".join(tag_parts)}</i>'
-
-    return title
+    story.append(HRFlowable(width="100%", thickness=0.8, color=colors.black, spaceBefore=1, spaceAfter=6))
 
 
 def two_col_row(left_text, right_text, left_style, right_style):
@@ -64,27 +58,12 @@ def two_col_row(left_text, right_text, left_style, right_style):
 
 
 def bullet_list(story, bullets):
-    if not bullets:
-        return
-    items = [
-        ListItem(Paragraph(b, bullet_style), leftIndent=0)
-        for b in bullets
-    ]
-    story.append(ListFlowable(
-        items,
-        bulletType="bullet",
-        start="•",
-        leftIndent=-12,
-        bulletFontName=FONT_BOLD,
-        bulletFontSize=9,
-        bulletOffsetY=-0.5,
-        spaceBefore=1,
-        spaceAfter=3,
-    ))
+    for b in bullets:
+        story.append(Paragraph(f'•&nbsp;&nbsp;{b}', bullet_style))
+
 
 def build_resume_pdf(output_path: str, personal_info: dict, education: list,
-                      experience: list, projects: list, skills: list, extracurricular: list,
-                      coursework: list = None):
+                      experience: list, projects: list, skills: list, extracurricular: list):
     doc = SimpleDocTemplate(output_path, pagesize=A4,
                              topMargin=0.55 * inch, bottomMargin=0.55 * inch,
                              leftMargin=0.75 * inch, rightMargin=0.75 * inch)
@@ -92,16 +71,22 @@ def build_resume_pdf(output_path: str, personal_info: dict, education: list,
 
     # Header
     story.append(Paragraph(personal_info.get("name", "").upper(), name_style))
-    contact_parts = [p for p in [personal_info.get("location", "")] if p]
-    if contact_parts:
-        story.append(Paragraph(contact_parts[0], contact_style))
 
-    line2 = [p for p in [personal_info.get("phone", ""), personal_info.get("email", "")] if p]
-    links = personal_info.get("links", [])
-    link_parts = [f'<link href="{l.get("url", "")}"><u>{l.get("label", "")}</u></link>' for l in links]
-    contact_line2 = " &nbsp;&nbsp; ".join(line2 + link_parts)
-    if contact_line2:
-        story.append(Paragraph(contact_line2, contact_style))
+    contact_parts = [p for p in [
+        personal_info.get("location", ""),
+        personal_info.get("phone", ""),
+    ] if p]
+
+    email = personal_info.get("email", "")
+    if email:
+        contact_parts.append(styled_link(f"mailto:{email}", email))
+
+    for link in personal_info.get("links", []):
+        if link.get("url"):
+            contact_parts.append(styled_link(link["url"], link.get("label", link["url"])))
+
+    if contact_parts:
+        story.append(Paragraph(" &nbsp;|&nbsp; ".join(contact_parts), contact_style))
 
     # Education
     if education:
@@ -111,28 +96,30 @@ def build_resume_pdf(output_path: str, personal_info: dict, education: list,
                 item.get("institution", ""), item.get("dates", ""),
                 entry_title_style, entry_date_style
             ))
-            story.append(two_col_row(
-                item.get("degree", ""), item.get("detail", ""),
-                entry_sub_italic_style, entry_date_italic_style
-            ))
-            story.append(Spacer(1, 6))
-
-    # Coursework
-    if coursework:
-        section_header(story, "Coursework")
-        rows = []
-        for i in range(0, len(coursework), 3):
-            row_items = coursework[i:i+3]
-            rows.append(" &nbsp;&nbsp;&nbsp; ".join(f"• {c}" for c in row_items))
-        story.append(Paragraph("<br/>".join(rows), coursework_style))
-        story.append(Spacer(1, 4))
+            degree_line = item.get("degree", "")
+            if item.get("detail"):
+                degree_line += f' &nbsp;|&nbsp; {item.get("detail")}'
+            story.append(Paragraph(degree_line, entry_sub_italic_style))
+            story.append(Spacer(1, 8))
 
     # Projects
     if projects:
         section_header(story, "Projects")
         for item in projects:
-            story.append(two_col_row(project_title_line(item), item.get("date", ""), entry_title_style, entry_date_style))
+            story.append(two_col_row(
+                item.get("name", ""), item.get("date", ""),
+                entry_title_style, entry_date_style
+            ))
+            if item.get("tags"):
+                story.append(Paragraph(
+                    f'<b>Tech Stack:</b> <i>{item.get("tags")}</i>', tech_line_style
+                ))
             bullet_list(story, item.get("bullets", []))
+            if item.get("live_url"):
+                display_url = item["live_url"].replace("https://", "").replace("http://", "")
+                story.append(Paragraph(
+                    f'<b>Code:</b> {styled_link(item["live_url"], display_url)}', code_line_style
+                ))
             story.append(Spacer(1, 4))
 
     # Experience
@@ -149,8 +136,8 @@ def build_resume_pdf(output_path: str, personal_info: dict, education: list,
         section_header(story, "Technical Skills")
         for group in skills:
             line = f'<b>{group.get("category", "")}:</b> {", ".join(group.get("items", []))}'
-            story.append(Paragraph(line, bullet_style))
-            story.append(Spacer(1, 3))
+            story.append(Paragraph(line, tech_line_style))
+        story.append(Spacer(1, 4))
 
     # Extracurricular
     if extracurricular:
