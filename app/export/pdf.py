@@ -15,76 +15,153 @@ from reportlab.lib import colors
 
 
 # ============================================================
-# FONT CONFIGURATION
+# PAGE / FONT CONFIG
 # ============================================================
 
-# Times-Roman is very close to the font in your screenshot.
 FONT = "Times-Roman"
 FONT_BOLD = "Times-Bold"
 FONT_ITALIC = "Times-Italic"
 
-LINK_COLOR = "#1A56DB"
+LINK_COLOR = "#0563C1"
+
+
+# ============================================================
+# EXACT PAGE GEOMETRY
+# ============================================================
+
+PAGE_WIDTH, PAGE_HEIGHT = A4
+
+# The screenshot has a relatively narrow left/right margin.
+LEFT_MARGIN = 0.52 * inch
+RIGHT_MARGIN = 0.52 * inch
+
+CONTENT_WIDTH = PAGE_WIDTH - LEFT_MARGIN - RIGHT_MARGIN
 
 
 # ============================================================
 # STYLES
 # ============================================================
 
-# ---------- HEADER ----------
+# ---------------- HEADER ----------------
 
-name_style =  ParagraphStyle("Name", fontName=FONT_BOLD, fontSize=22, alignment=TA_CENTER, spaceAfter=2, leading=26)
-
-contact_style = ParagraphStyle("Contact", fontName=FONT, fontSize=9.5, alignment=TA_CENTER, spaceAfter=10, leading=12)
-
-
-# ---------- SECTION ----------
-
-section_style = ParagraphStyle("Section", fontName=FONT_BOLD, fontSize=11, spaceBefore=8, spaceAfter=2)
-
-# ---------- EDUCATION / PROJECT TITLES ----------
-
-entry_title_style = ParagraphStyle("EntryTitle", fontName=FONT_BOLD, fontSize=10.5, leading=13)
-
-entry_date_style = ParagraphStyle("EntryDate", fontName=FONT_BOLD, fontSize=10, alignment=2, leading=13)
-
-entry_sub_italic_style = ParagraphStyle("EntrySubItalic", fontName=FONT_ITALIC, fontSize=10, leading=12)
-
-
-# ---------- TECH STACK ----------
-
-tech_line_style = ParagraphStyle(
-    "TechLine",
-    fontName=FONT,
-    fontSize=9.3,
-    leading=11.5,
+name_style = ParagraphStyle(
+    "Name",
+    fontName=FONT_BOLD,
+    fontSize=16,
+    leading=17,
+    alignment=TA_CENTER,
     spaceAfter=2,
 )
 
 
-# ---------- BULLETS ----------
-
-bullet_style = ParagraphStyle("Bullet", fontName=FONT, fontSize=9.7, leading=13,leftIndent=20)
-
-
-# ---------- CODE / GITHUB ----------
-
-code_line_style = ParagraphStyle(
-    "CodeLine",
+contact_style = ParagraphStyle(
+    "Contact",
     fontName=FONT,
-    fontSize=9.3,
+    fontSize=9.1,
+    leading=10.5,
+    alignment=TA_CENTER,
+    spaceAfter=7,
+)
+
+
+# ---------------- SECTION ----------------
+
+section_style = ParagraphStyle(
+    "Section",
+    fontName=FONT_BOLD,
+    fontSize=10.2,
     leading=11,
-    spaceAfter=3,
+    spaceBefore=3,
+    spaceAfter=1,
+)
+
+
+# ---------------- TITLES ----------------
+
+entry_title_style = ParagraphStyle(
+    "EntryTitle",
+    fontName=FONT_BOLD,
+    fontSize=9.8,
+    leading=11.5,
+    spaceBefore=0,
+    spaceAfter=0,
+)
+
+
+# ---------------- DATES ----------------
+
+date_style = ParagraphStyle(
+    "Date",
+    fontName=FONT_ITALIC,
+    fontSize=9.4,
+    leading=11.5,
+    alignment=TA_RIGHT,
+    spaceBefore=0,
+    spaceAfter=0,
+)
+
+
+# ---------------- DEGREE / TECH STACK ----------------
+
+italic_style = ParagraphStyle(
+    "Italic",
+    fontName=FONT_ITALIC,
+    fontSize=9.2,
+    leading=11,
+    spaceBefore=0,
+    spaceAfter=1,
+)
+
+
+tech_style = ParagraphStyle(
+    "Tech",
+    fontName=FONT,
+    fontSize=9.2,
+    leading=11.2,
+    spaceBefore=0,
+    spaceAfter=1,
+)
+
+
+# ---------------- BULLETS ----------------
+
+bullet_style = ParagraphStyle(
+    "Bullet",
+    fontName=FONT,
+    fontSize=9.15,
+    leading=11.5,
+
+    # Bullet position
+    leftIndent=17,
+
+    # Move bullet itself to the left
+    firstLineIndent=-9,
+
+    spaceBefore=0,
+    spaceAfter=0.5,
+)
+
+
+# ---------------- CODE ----------------
+
+code_style = ParagraphStyle(
+    "Code",
+    fontName=FONT,
+    fontSize=9.15,
+    leading=11,
+    leftIndent=17,
+    firstLineIndent=0,
+    spaceBefore=0,
+    spaceAfter=2,
 )
 
 
 # ============================================================
-# HELPER FUNCTIONS
+# LINK
 # ============================================================
 
-def styled_link(url: str, label: str) -> str:
-    """
-    Creates a blue underlined hyperlink.
-    """
+def styled_link(url, label):
+
     return (
         f'<link href="{url}">'
         f'<font color="{LINK_COLOR}"><u>{label}</u></font>'
@@ -92,37 +169,52 @@ def styled_link(url: str, label: str) -> str:
     )
 
 
+# ============================================================
+# SECTION HEADER
+# ============================================================
+
 def section_header(story, title):
-    """
-    Creates section heading + thin horizontal line.
-    Matches the screenshot.
-    """
 
     story.append(
-        Paragraph(title.upper(), section_style)
+        Paragraph(
+            title.upper(),
+            section_style
+        )
     )
 
     story.append(
         HRFlowable(
             width="100%",
-            thickness=0.7,
+            thickness=0.65,
             color=colors.black,
-            spaceBefore=0,
+            spaceBefore=1,
             spaceAfter=4,
         )
     )
 
 
+# ============================================================
+# LEFT + RIGHT ALIGNMENT
+# ============================================================
+
 def two_col_row(
     left_text,
     right_text,
     left_style=entry_title_style,
-    right_style=entry_date_style,
+    right_style=date_style,
 ):
-    """
-    Left side = title
-    Right side = date
-    """
+
+    # IMPORTANT:
+    #
+    # The left column occupies almost all the width.
+    # The right column is only used for the date.
+    #
+    # This makes the date stay on one fixed right edge,
+    # exactly like the screenshot.
+
+    DATE_WIDTH = 1.05 * inch
+
+    LEFT_WIDTH = CONTENT_WIDTH - DATE_WIDTH
 
     table = Table(
         [
@@ -132,9 +224,10 @@ def two_col_row(
             ]
         ],
         colWidths=[
-            5.15 * inch,
-            1.35 * inch,
+            LEFT_WIDTH,
+            DATE_WIDTH,
         ],
+        hAlign="LEFT",
     )
 
     table.setStyle(
@@ -142,9 +235,11 @@ def two_col_row(
             [
                 ("VALIGN", (0, 0), (-1, -1), "TOP"),
 
+                # ZERO horizontal padding
                 ("LEFTPADDING", (0, 0), (-1, -1), 0),
                 ("RIGHTPADDING", (0, 0), (-1, -1), 0),
 
+                # ZERO vertical padding
                 ("TOPPADDING", (0, 0), (-1, -1), 0),
                 ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
             ]
@@ -154,49 +249,56 @@ def two_col_row(
     return table
 
 
+# ============================================================
+# BULLET
+# ============================================================
+
+def add_bullet(story, text):
+
+    story.append(
+        Paragraph(
+            f"•&nbsp;&nbsp;{text}",
+            bullet_style
+        )
+    )
+
+
 def bullet_list(story, bullets):
-    """
-    Adds compact resume bullets.
-    """
 
     for bullet in bullets:
-        story.append(
-            Paragraph(
-                f"•&nbsp;&nbsp;{bullet}",
-                bullet_style,
-            )
-        )
+        add_bullet(story, bullet)
 
 
 # ============================================================
-# BUILD RESUME
+# BUILD PDF
 # ============================================================
 
 def build_resume_pdf(
-    output_path: str,
-    personal_info: dict,
-    education: list,
-    experience: list,
-    projects: list,
-    skills: list,
-    extracurricular: list,
+    output_path,
+    personal_info,
+    education,
+    experience,
+    projects,
+    skills,
+    extracurricular,
 ):
 
-    # --------------------------------------------------------
-    # PAGE SETTINGS
-    # --------------------------------------------------------
+    # ========================================================
+    # DOCUMENT
+    # ========================================================
 
     doc = SimpleDocTemplate(
+
         output_path,
+
         pagesize=A4,
 
-        # Screenshot has fairly narrow margins
-        topMargin=0.40 * inch,
-        bottomMargin=0.40 * inch,
-        leftMargin=0.55 * inch,
-        rightMargin=0.55 * inch,
+        # EXACT BODY MARGINS
+        topMargin=0.38 * inch,
+        bottomMargin=0.38 * inch,
+        leftMargin=LEFT_MARGIN,
+        rightMargin=RIGHT_MARGIN,
 
-        # Prevent ReportLab from adding unexpected spacing
         title="Resume",
         author=personal_info.get("name", ""),
     )
@@ -208,26 +310,42 @@ def build_resume_pdf(
     # HEADER
     # ========================================================
 
-    name = personal_info.get("name", "")
+    name = personal_info.get(
+        "name",
+        ""
+    )
 
     if name:
+
         story.append(
             Paragraph(
                 name.upper(),
-                name_style,
+                name_style
             )
         )
 
 
-    # --------------------------------------------------------
-    # CONTACT INFORMATION
-    # --------------------------------------------------------
+    # ========================================================
+    # CONTACT LINE
+    # ========================================================
 
     contact_parts = []
 
-    location = personal_info.get("location", "")
-    phone = personal_info.get("phone", "")
-    email = personal_info.get("email", "")
+    location = personal_info.get(
+        "location",
+        ""
+    )
+
+    phone = personal_info.get(
+        "phone",
+        ""
+    )
+
+    email = personal_info.get(
+        "email",
+        ""
+    )
+
 
     if location:
         contact_parts.append(location)
@@ -236,39 +354,47 @@ def build_resume_pdf(
         contact_parts.append(phone)
 
     if email:
+
         contact_parts.append(
             styled_link(
                 f"mailto:{email}",
-                email,
+                email
             )
         )
 
-    # Additional links
-    for link in personal_info.get("links", []):
 
-        url = link.get("url", "")
-        label = link.get("label", "")
+    # Social links
+    for link in personal_info.get(
+        "links",
+        []
+    ):
+
+        url = link.get(
+            "url",
+            ""
+        )
+
+        label = link.get(
+            "label",
+            ""
+        )
 
         if url:
-
-            # Remove https:// from displayed text
-            display_label = label or url
 
             contact_parts.append(
                 styled_link(
                     url,
-                    display_label,
+                    label or url
                 )
             )
 
-    if contact_parts:
 
-        contact_line = " &nbsp;|&nbsp; ".join(contact_parts)
+    if contact_parts:
 
         story.append(
             Paragraph(
-                contact_line,
-                contact_style,
+                " &nbsp;|&nbsp; ".join(contact_parts),
+                contact_style
             )
         )
 
@@ -281,46 +407,60 @@ def build_resume_pdf(
 
         section_header(
             story,
-            "Education",
+            "Education"
         )
+
 
         for item in education:
 
-            # University + Date
+            # University ---------------- Date
             story.append(
                 two_col_row(
-                    item.get("institution", ""),
-                    item.get("dates", ""),
-                    entry_title_style,
-                    entry_date_style,
+                    item.get(
+                        "institution",
+                        ""
+                    ),
+
+                    item.get(
+                        "dates",
+                        ""
+                    )
                 )
             )
 
-            # Degree + CGPA
-            degree_line = item.get(
+
+            # Degree --------------------
+            degree = item.get(
                 "degree",
-                "",
+                ""
             )
 
             detail = item.get(
                 "detail",
-                "",
+                ""
             )
 
             if detail:
-                degree_line += (
-                    f" &nbsp;|&nbsp; {detail}"
+
+                degree += (
+                    f" &nbsp;|&nbsp; "
+                    f"{detail}"
                 )
+
 
             story.append(
                 Paragraph(
-                    degree_line,
-                    entry_sub_italic_style,
+                    degree,
+                    italic_style
                 )
             )
 
+
             story.append(
-                Spacer(1, 3)
+                Spacer(
+                    1,
+                    5
+                )
             )
 
 
@@ -332,24 +472,30 @@ def build_resume_pdf(
 
         section_header(
             story,
-            "Projects",
+            "Projects"
         )
 
-        for item in projects:
 
-            project_block = []
+        for project in projects:
+
+            project_elements = []
 
 
             # ------------------------------------------------
             # PROJECT NAME + DATE
             # ------------------------------------------------
 
-            project_block.append(
+            project_elements.append(
                 two_col_row(
-                    item.get("name", ""),
-                    item.get("date", ""),
-                    entry_title_style,
-                    entry_date_style,
+                    project.get(
+                        "name",
+                        ""
+                    ),
+
+                    project.get(
+                        "date",
+                        ""
+                    )
                 )
             )
 
@@ -358,18 +504,18 @@ def build_resume_pdf(
             # TECH STACK
             # ------------------------------------------------
 
-            tags = item.get(
+            tags = project.get(
                 "tags",
-                "",
+                ""
             )
 
             if tags:
 
-                project_block.append(
+                project_elements.append(
                     Paragraph(
                         f"<b>Tech Stack:</b> "
                         f"<i>{tags}</i>",
-                        tech_line_style,
+                        tech_style
                     )
                 )
 
@@ -378,53 +524,69 @@ def build_resume_pdf(
             # BULLETS
             # ------------------------------------------------
 
-            for bullet in item.get(
+            for bullet in project.get(
                 "bullets",
-                [],
+                []
             ):
 
-                project_block.append(
+                project_elements.append(
                     Paragraph(
                         f"•&nbsp;&nbsp;{bullet}",
-                        bullet_style,
+                        bullet_style
                     )
                 )
 
 
             # ------------------------------------------------
-            # GITHUB / CODE LINK
+            # CODE
             # ------------------------------------------------
 
-            live_url = item.get(
+            live_url = project.get(
                 "live_url",
-                "",
+                ""
             )
 
             if live_url:
 
                 display_url = (
                     live_url
-                    .replace("https://", "")
-                    .replace("http://", "")
-                )
-
-                project_block.append(
-                    Paragraph(
-                        f"<b>Code:</b> "
-                        f"{styled_link(live_url, display_url)}",
-                        code_line_style,
+                    .replace(
+                        "https://",
+                        ""
+                    )
+                    .replace(
+                        "http://",
+                        ""
                     )
                 )
 
 
-            # Keep project content together where possible
+                project_elements.append(
+                    Paragraph(
+                        f"<b>Code:</b>&nbsp;"
+                        f"{styled_link(live_url, display_url)}",
+                        code_style
+                    )
+                )
+
+
+            # ------------------------------------------------
+            # KEEP PROJECT TOGETHER
+            # ------------------------------------------------
+
             story.append(
-                KeepTogether(project_block)
+                KeepTogether(
+                    project_elements
+                )
             )
 
-            # Small gap between projects
+
+            # Small gap before next project
             story.append(
-                Spacer(1, 3)
+                Spacer(
+                    1,
+                    2.5
+                )
             )
 
 
@@ -436,32 +598,38 @@ def build_resume_pdf(
 
         section_header(
             story,
-            "Experience",
+            "Experience"
         )
+
 
         for item in experience:
 
-            title_line = (
-                f'{item.get("role", "")}'
+            role = item.get(
+                "role",
+                ""
             )
 
             company = item.get(
                 "company",
-                "",
+                ""
             )
 
+            title = role
+
             if company:
-                title_line += (
+
+                title += (
                     f" — {company}"
                 )
 
 
             story.append(
                 two_col_row(
-                    title_line,
-                    item.get("dates", ""),
-                    entry_title_style,
-                    entry_date_style,
+                    title,
+                    item.get(
+                        "dates",
+                        ""
+                    )
                 )
             )
 
@@ -470,12 +638,16 @@ def build_resume_pdf(
                 story,
                 item.get(
                     "bullets",
-                    [],
-                ),
+                    []
+                )
             )
 
+
             story.append(
-                Spacer(1, 3)
+                Spacer(
+                    1,
+                    3
+                )
             )
 
 
@@ -487,35 +659,37 @@ def build_resume_pdf(
 
         section_header(
             story,
-            "Technical Skills",
+            "Technical Skills"
         )
+
 
         for group in skills:
 
             category = group.get(
                 "category",
-                "",
+                ""
             )
 
             items = group.get(
                 "items",
-                [],
+                []
             )
 
-            line = (
-                f"<b>{category}:</b> "
-                f"{', '.join(items)}"
-            )
 
             story.append(
                 Paragraph(
-                    line,
-                    tech_line_style,
+                    f"<b>{category}:</b> "
+                    f"{', '.join(items)}",
+                    tech_style
                 )
             )
 
+
         story.append(
-            Spacer(1, 2)
+            Spacer(
+                1,
+                2
+            )
         )
 
 
@@ -527,17 +701,18 @@ def build_resume_pdf(
 
         section_header(
             story,
-            "Extracurricular",
+            "Extracurricular"
         )
+
 
         bullet_list(
             story,
-            extracurricular,
+            extracurricular
         )
 
 
     # ========================================================
-    # BUILD PDF
+    # BUILD
     # ========================================================
 
     doc.build(story)
