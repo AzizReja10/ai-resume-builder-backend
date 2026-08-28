@@ -64,3 +64,11 @@ class ResumeAnalysisResponse(BaseModel):
     strengths:list[str]
     improvements:list[str]
     section_feedback:list[SectionFeedback]
+class ResumeExportRequest(BaseModel):
+    title: str = "Resume"
+    personal_info: dict = {}
+    education: list = []
+    experience: list = []
+    projects: list = []
+    skills: list = []
+    extracurricular: list = []

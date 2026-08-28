@@ -7,7 +7,7 @@ from sqlalchemy import select
 from fastapi.responses import FileResponse
 from starlette.concurrency import run_in_threadpool
 from pydantic import ValidationError
-
+from app.resumes.schemas import ResumeExportRequest
 from app.core.database import get_db
 from app.core.session import get_session_id
 from app.resumes.models import Resume
@@ -207,4 +207,24 @@ async def export_resume_pdf(
         output_path,
         media_type="application/pdf",
         filename=f"{resume.title.replace(' ', '_')}.pdf",
+    )
+@router.post("/export-pdf-preview")
+async def export_pdf_preview(data: ResumeExportRequest):
+    output_path = os.path.join(tempfile.gettempdir(), "resume_preview.pdf")
+
+    await run_in_threadpool(
+        build_resume_pdf,
+        output_path,
+        data.personal_info,
+        data.education,
+        data.experience,
+        data.projects,
+        data.skills,
+        data.extracurricular,
+    )
+
+    return FileResponse(
+        output_path,
+        media_type="application/pdf",
+        filename=f"{data.title.replace(' ', '_')}.pdf",
     )
