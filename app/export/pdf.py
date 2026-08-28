@@ -32,63 +32,22 @@ LINK_COLOR = "#1A56DB"
 
 # ---------- HEADER ----------
 
-name_style = ParagraphStyle(
-    "Name",
-    fontName=FONT_BOLD,
-    fontSize=16,
-    leading=18,
-    alignment=TA_CENTER,
-    spaceAfter=2,
-)
+name_style =  ParagraphStyle("Name", fontName=FONT_BOLD, fontSize=22, alignment=TA_CENTER, spaceAfter=2, leading=26)
 
-contact_style = ParagraphStyle(
-    "Contact",
-    fontName=FONT,
-    fontSize=9.2,
-    leading=11,
-    alignment=TA_CENTER,
-    spaceAfter=8,
-)
+contact_style = ParagraphStyle("Contact", fontName=FONT, fontSize=9.5, alignment=TA_CENTER, spaceAfter=10, leading=12)
 
 
 # ---------- SECTION ----------
 
-section_style = ParagraphStyle(
-    "Section",
-    fontName=FONT_BOLD,
-    fontSize=10.5,
-    leading=12,
-    spaceBefore=4,
-    spaceAfter=2,
-)
-
+section_style = ParagraphStyle("Section", fontName=FONT_BOLD, fontSize=11, spaceBefore=8, spaceAfter=2)
 
 # ---------- EDUCATION / PROJECT TITLES ----------
 
-entry_title_style = ParagraphStyle(
-    "EntryTitle",
-    fontName=FONT_BOLD,
-    fontSize=10,
-    leading=-3,
-    leftIndent=-2,
-    spaceAfter=0,
-)
+entry_title_style = ParagraphStyle("EntryTitle", fontName=FONT_BOLD, fontSize=10.5, leading=13)
 
-entry_date_style = ParagraphStyle(
-    "EntryDate",
-    fontName=FONT_ITALIC,
-    fontSize=9.5,
-    leading=12,
-    alignment=TA_RIGHT,
-)
+entry_date_style = ParagraphStyle("EntryDate", fontName=FONT_BOLD, fontSize=10, alignment=2, leading=13)
 
-entry_sub_italic_style = ParagraphStyle(
-    "EntrySubItalic",
-    fontName=FONT_ITALIC,
-    fontSize=9.3,
-    leading=11,
-    spaceAfter=2,
-)
+entry_sub_italic_style = ParagraphStyle("EntrySubItalic", fontName=FONT_ITALIC, fontSize=10, leading=12)
 
 
 # ---------- TECH STACK ----------
@@ -104,15 +63,7 @@ tech_line_style = ParagraphStyle(
 
 # ---------- BULLETS ----------
 
-bullet_style = ParagraphStyle(
-    "Bullet",
-    fontName=FONT,
-    fontSize=9.3,
-    leading=12,
-    leftIndent=15,
-    firstLineIndent=-9,
-    spaceAfter=1.5,
-)
+bullet_style = ParagraphStyle("Bullet", fontName=FONT, fontSize=9.7, leading=13,leftIndent=20)
 
 
 # ---------- CODE / GITHUB ----------
