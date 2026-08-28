@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.database import engine, Base
 from app.resumes.router import router as resumes_router
-
+from app.analyzer.router import router as analyzer_router
 from app.resumes import models as resume_models
 
 app = FastAPI(title="AI Resume Builder")
@@ -19,7 +19,7 @@ app.add_middleware(
 )
 
 app.include_router(resumes_router)
-
+app.include_router(analyzer_router)
 
 @app.on_event("startup")
 async def startup():
