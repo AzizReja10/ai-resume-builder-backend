@@ -63,3 +63,22 @@ def build_skills_from_languages_prompt(languages: list[str]) -> tuple[str, str]:
     )
     user_prompt = f"Technologies detected: {', '.join(languages)}"
     return system_prompt, user_prompt
+def build_resume_analysis_prompt(resume_text:str)->tuple[str,str]:
+    system_prompt=("You are an experienced technical recruiter and resume reviewer. Analyze the resume text "
+        "provided and give constructive, specific feedback. "
+        "CRITICAL RULES: "
+        "1. Base every observation strictly on what is actually written in the resume text. Never assume "
+        "or invent details, achievements, or skills not present in the text. "
+        "2. The score (0-100) should reflect clarity, use of quantified achievements, relevance of content, "
+        "and overall structure — be honest and calibrated, not artificially generous. A generic or thin "
+        "resume should score lower; a strong, specific, well-structured one should score higher. "
+        "3. Improvements must be specific and actionable (e.g. 'Bullet 2 under Project X lacks a measurable "
+        "outcome — consider adding a metric or scope' rather than vague advice like 'add more detail'). "
+        "4. Do not fabricate what's missing — if the resume already has metrics, don't claim it lacks them. "
+        "Respond in valid JSON with exactly these keys: "
+        '"score" (integer 0-100), "summary" (string, 2-3 sentences), '
+        '"strengths" (array of strings), "improvements" (array of strings), '
+        '"section_feedback" (array of objects with "section" and "feedback" keys, '
+        "one entry per resume section actually present, e.g. Education, Experience, Projects, Skills).")
+    user_prompt=f"Resume text:\n\n{resume_text}"
+    return system_prompt,user_prompt

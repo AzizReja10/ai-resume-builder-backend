@@ -55,3 +55,12 @@ class GeneratedProject(BaseModel):
     skills:list[SkillGroup]
     profile_links:list[ExtractedLink]=[]
     education:list[ExtractedEducation]=[]
+class SectionFeedback(BaseModel):
+    section:str
+    feedback:str
+class ResumeAnalysisResponse(BaseModel):
+    score:int
+    summary:str
+    strengths:list[str]
+    improvements:list[str]
+    section_feedback:list[SectionFeedback]
