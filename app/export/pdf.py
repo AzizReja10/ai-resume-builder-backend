@@ -36,7 +36,7 @@ def project_title_line(item):
 
     tag_parts = []
     if item.get("live_url"):
-        tag_parts.append(f' <link href="{item.get("live_url")}"><u>Github</u></link>')
+        tag_parts.append(f' <link href="{item.get("live_url")}"><u>Live</u></link>')
     if item.get("group_label"):
         tag_parts.append(item.get("group_label"))
     if item.get("tags"):
