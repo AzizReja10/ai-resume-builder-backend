@@ -108,6 +108,7 @@ italic_style = ParagraphStyle(
     fontName=FONT_ITALIC,
     fontSize=9.2,
     leading=11,
+    leftIndent=8,          # slightly right
     spaceBefore=0,
     spaceAfter=1,
 )
@@ -118,6 +119,7 @@ tech_style = ParagraphStyle(
     fontName=FONT,
     fontSize=9.2,
     leading=11.2,
+    leftIndent=8,          # slightly right
     spaceBefore=0,
     spaceAfter=1,
 )
@@ -131,10 +133,10 @@ bullet_style = ParagraphStyle(
     fontSize=9.15,
     leading=11.5,
 
-    # Bullet position
-    leftIndent=17,
+    # Move entire bullet content slightly right
+    leftIndent=25,
 
-    # Move bullet itself to the left
+    # Keep bullet itself slightly to the left of text
     firstLineIndent=-9,
 
     spaceBefore=0,
@@ -149,7 +151,10 @@ code_style = ParagraphStyle(
     fontName=FONT,
     fontSize=9.15,
     leading=11,
-    leftIndent=17,
+
+    # Align Code with the project description
+    leftIndent=25,
+
     firstLineIndent=0,
     spaceBefore=0,
     spaceAfter=2,
@@ -441,11 +446,10 @@ def build_resume_pdf(
             )
 
             if detail:
-
                 degree += (
-                    f" &nbsp;|&nbsp; "
-                    f"{detail}"
-                )
+        f" &nbsp;&nbsp; "
+        f"CGPA: {detail}"
+    )
 
 
             story.append(
@@ -585,7 +589,7 @@ def build_resume_pdf(
             story.append(
                 Spacer(
                     1,
-                    2.5
+                    4
                 )
             )
 
