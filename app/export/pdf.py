@@ -84,7 +84,7 @@ entry_title_style = ParagraphStyle(
     fontSize=9.8,
     leading=11.5,
     spaceBefore=0,
-    spaceAfter=0,
+    spaceAfter=2,
 )
 
 
@@ -121,7 +121,7 @@ tech_style = ParagraphStyle(
     leading=11.2,
     leftIndent=8,          # slightly right
     spaceBefore=0,
-    spaceAfter=1,
+    spaceAfter=2,
 )
 
 
@@ -140,7 +140,7 @@ bullet_style = ParagraphStyle(
     firstLineIndent=-9,
 
     spaceBefore=0,
-    spaceAfter=0.5,
+    spaceAfter=1.5,
 )
 
 
@@ -683,7 +683,7 @@ def build_resume_pdf(
             story.append(
                 Paragraph(
                     f"<b>{category}:</b> "
-                    f"{', '.join(items)}",
+                    f"{', '.join(items)}<br>",
                     tech_style
                 )
             )
