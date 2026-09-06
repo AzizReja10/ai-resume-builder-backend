@@ -672,10 +672,12 @@ def build_resume_pdf(
 
                 title_text += (
                     " &nbsp; "
+                    + f'<font size="{code_style.fontSize}">'
                     + styled_link(
                         website_url,
                         "Live"
                     )
+                    + "</font>"
                 )
 
             project_elements.append(
