@@ -656,15 +656,34 @@ def build_resume_pdf(
 
 
             # ------------------------------------------------
-            # PROJECT NAME + DATE
+            # PROJECT NAME + LIVE TAG + DATE
             # ------------------------------------------------
+
+            project_name = project.get(
+                "name",
+                ""
+            )
+
+            website_url = project.get(
+                "website_url",
+                ""
+            )
+
+            title_text = project_name
+
+            if website_url:
+
+                title_text += (
+                    " &nbsp; "
+                    + styled_link(
+                        website_url,
+                        "Live"
+                    )
+                )
 
             project_elements.append(
                 two_col_row(
-                    project.get(
-                        "name",
-                        ""
-                    ),
+                    title_text,
 
                     project.get(
                         "date",
