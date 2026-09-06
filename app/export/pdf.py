@@ -633,7 +633,7 @@ def build_resume_pdf(
             story.append(
                 Spacer(
                     1,
-                    2
+                    4
                 )
             )
 
@@ -770,7 +770,7 @@ def build_resume_pdf(
             story.append(
                 Spacer(
                     1,
-                    4
+                    6
                 )
             )
 
@@ -837,7 +837,7 @@ def build_resume_pdf(
             story.append(
                 Spacer(
                     1,
-                    2
+                    4
                 )
             )
 
@@ -880,7 +880,7 @@ def build_resume_pdf(
         story.append(
             Spacer(
                 1,
-                2
+                4
             )
         )
 
