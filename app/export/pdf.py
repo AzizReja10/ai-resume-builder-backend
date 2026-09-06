@@ -103,8 +103,8 @@ section_style = ParagraphStyle(
     fontName=FONT_BOLD,
     fontSize=11,
     leading=11,
-    spaceBefore=2,
-    spaceAfter=-1,
+    spaceBefore=4,
+    spaceAfter=0,
 )
 
 
@@ -174,11 +174,11 @@ tech_style = ParagraphStyle(
 bullet_style = ParagraphStyle(
     "Bullet",
     fontName=FONT,
-    fontSize=9.4,
-    leading=9.8,
-    leftIndent=22,
-    firstLineIndent=-8,
-    spaceBefore=0,
+    fontSize=9.8,
+    leading=10.5,
+    leftIndent=25,
+    firstLineIndent=-9,
+    spaceBefore=0.5,
     spaceAfter=0,
 )
 
@@ -207,9 +207,9 @@ technical_skill_style = ParagraphStyle(
     "TechnicalSkill",
     fontName=FONT,
     fontSize=10,
-    leading=9.8,
+    leading=10.5,
     leftIndent=8,
-    spaceBefore=0,
+    spaceBefore=0.5,
     spaceAfter=0,
 )
 
@@ -285,8 +285,8 @@ def section_header(story, title):
             width="100%",
             thickness=0.65,
             color=colors.black,
-            spaceBefore=0,
-            spaceAfter=1,
+            spaceBefore=1,
+            spaceAfter=2,
         )
     )
 
@@ -433,8 +433,8 @@ def build_resume_pdf(
         pagesize=A4,
 
         # Top and bottom
-        topMargin=0.32 * inch,
-        bottomMargin=0.32 * inch,
+        topMargin=0.38 * inch,
+        bottomMargin=0.38 * inch,
 
         # Left and right
         leftMargin=LEFT_MARGIN,
@@ -633,7 +633,7 @@ def build_resume_pdf(
             story.append(
                 Spacer(
                     1,
-                    0
+                    2
                 )
             )
 
@@ -770,7 +770,7 @@ def build_resume_pdf(
             story.append(
                 Spacer(
                     1,
-                    1
+                    4
                 )
             )
 
@@ -837,7 +837,7 @@ def build_resume_pdf(
             story.append(
                 Spacer(
                     1,
-                    0
+                    2
                 )
             )
 
