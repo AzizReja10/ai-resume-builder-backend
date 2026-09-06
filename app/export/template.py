@@ -72,7 +72,7 @@ RESUME_TEMPLATE = Template("""
     {% endif %}
 
     {% if extracurricular %}
-    <h2>Extracurricular</h2>
+    <h2>Achievements</h2>
     <ul>{% for item in extracurricular %}<li>{{ item }}</li>{% endfor %}</ul>
     {% endif %}
 </body>
