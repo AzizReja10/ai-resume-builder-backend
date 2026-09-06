@@ -78,7 +78,7 @@ name_style = ParagraphStyle(
     fontSize=22,      # was 18
     leading=22,       # match the font size
     alignment=TA_CENTER,
-    spaceBefore=-4,   # move name slightly upward
+    spaceBefore=-8,   # move name slightly upward
     spaceAfter=5,
 )
 
