@@ -79,7 +79,7 @@ name_style = ParagraphStyle(
     leading=17,
     alignment=TA_CENTER,
     spaceBefore=0,
-    spaceAfter=1,
+    spaceAfter=3,
 )
 
 
@@ -90,7 +90,7 @@ contact_style = ParagraphStyle(
     leading=10,
     alignment=TA_CENTER,
     spaceBefore=0,
-    spaceAfter=6,
+    spaceAfter=8,
 )
 
 
@@ -104,7 +104,7 @@ section_style = ParagraphStyle(
     fontSize=11,
     leading=11,
     spaceBefore=4,
-    spaceAfter=0,
+    spaceAfter=2,
 )
 
 
@@ -118,7 +118,7 @@ entry_title_style = ParagraphStyle(
     fontSize=10.8,
     leading=11,
     spaceBefore=1,
-    spaceAfter=0,
+    spaceAfter=2,
 )
 
 
@@ -133,7 +133,7 @@ date_style = ParagraphStyle(
     leading=11,
     alignment=TA_RIGHT,
     spaceBefore=1,
-    spaceAfter=0,
+    spaceAfter=2,
 )
 
 
@@ -148,7 +148,7 @@ italic_style = ParagraphStyle(
     leading=10.5,
     leftIndent=8,
     spaceBefore=1,
-    spaceAfter=0,
+    spaceAfter=2,
 )
 
 
@@ -163,7 +163,7 @@ tech_style = ParagraphStyle(
     leading=10.5,
     leftIndent=8,
     spaceBefore=1,
-    spaceAfter=0,
+    spaceAfter=2,
 )
 
 
@@ -179,7 +179,7 @@ bullet_style = ParagraphStyle(
     leftIndent=25,
     firstLineIndent=-9,
     spaceBefore=0.5,
-    spaceAfter=0,
+    spaceAfter=2,
 )
 
 
@@ -195,7 +195,7 @@ code_style = ParagraphStyle(
     leftIndent=25,
     firstLineIndent=0,
     spaceBefore=2,
-    spaceAfter=1,
+    spaceAfter=3,
 )
 
 
@@ -210,7 +210,7 @@ technical_skill_style = ParagraphStyle(
     leading=10.5,
     leftIndent=8,
     spaceBefore=0.5,
-    spaceAfter=0,
+    spaceAfter=2,
 )
 
 # ============================================================
@@ -286,7 +286,7 @@ def section_header(story, title):
             thickness=0.65,
             color=colors.black,
             spaceBefore=1,
-            spaceAfter=2,
+            spaceAfter=4,
         )
     )
 
