@@ -75,10 +75,10 @@ CONTENT_WIDTH = PAGE_WIDTH - LEFT_MARGIN - RIGHT_MARGIN
 name_style = ParagraphStyle(
     "Name",
     fontName=FONT_BOLD,
-    fontSize=22,
-    leading=22,
+    fontSize=26,
+    leading=26,
     alignment=TA_CENTER,
-    spaceAfter=2,
+    spaceAfter=4,
 )
 
 
