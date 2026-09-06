@@ -75,11 +75,10 @@ CONTENT_WIDTH = PAGE_WIDTH - LEFT_MARGIN - RIGHT_MARGIN
 name_style = ParagraphStyle(
     "Name",
     fontName=FONT_BOLD,
-    fontSize=22,      # was 18
-    leading=22,       # match the font size
+    fontSize=22,
+    leading=22,
     alignment=TA_CENTER,
-    spaceBefore=-8,   # move name slightly upward
-    spaceAfter=5,
+    spaceAfter=2,
 )
 
 
@@ -429,11 +428,9 @@ def build_resume_pdf(
 
     doc = SimpleDocTemplate(
         output_path,
-
         pagesize=A4,
-
         # Top and bottom
-        topMargin=0.38 * inch,
+        topMargin=0.22 * inch,
         bottomMargin=0.38 * inch,
 
         # Left and right
@@ -464,11 +461,11 @@ def build_resume_pdf(
     if name:
 
         story.append(
-            Paragraph(
-                small_caps_name(name),
-                name_style
-            )
-        )
+    Paragraph(
+        small_caps_name(name, big_size=22, small_size=16),
+        name_style
+    )
+)
 
 
     # ========================================================
